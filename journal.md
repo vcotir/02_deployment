@@ -28,3 +28,39 @@ Why use? Single-user desktop, mobile apps, low-write concurency, IOT devices
 4. Merge to `main`
 5. Deploy to production
 
+## Merging
+Error deploying code to `main`: 
+```
+==> Running 'npm start'
+> dream-catcher@1.0.0 start
+> node server.js
+Failed to initialize database: AggregateError [ECONNREFUSED]: 
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async initDatabase (file:///opt/render/project/src/config/database-init.js:5:18) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:5432
+        at createConnectionError (node:net:1686:14)
+        at afterConnectMultiple (node:net:1716:16) {
+      errno: -111,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 5432
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:5432
+        at createConnectionError (node:net:1686:14)
+        at afterConnectMultiple (node:net:1716:16) {
+      errno: -111,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 5432
+    }
+  ]
+}
+==> Application exited early
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+```
+* Issue was due to Render deploying the DB on emphermeral filesystem - (similar to EC2 non-dedicated instances *wink-wink*)
