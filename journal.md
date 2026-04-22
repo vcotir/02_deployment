@@ -64,3 +64,15 @@ Failed to initialize database: AggregateError [ECONNREFUSED]:
 ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
 ```
 * Issue was due to Render deploying the DB on emphermeral filesystem - (similar to EC2 non-dedicated instances *wink-wink*)
+
+## Notifications and Webhooks
+
+### Webhooks
+1. Render has 50 evnets to attach to 
+   * Deploys, data stores, scaling
+* Flow: Deploy --> Deploy fail --> Trigger web hook --> Webhook sends JSON --> Server handles JSON --> Alerts engineers/kicks off other flow
+* Can use alerting platforms like: PagerDuty/OpsGenie 
+
+## Health Endpoint
+* Grabs availability of services 
+
